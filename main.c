@@ -329,7 +329,11 @@ void addEdge(int ** matrix, int x, int y)
 void dfs(int ** matrix, int size)
 {
 	int * seen = calloc(size, sizeof(int));		// for tracking visited nodes
-	dfs_r(matrix, size, seen, 0);				// initiate recursion
+	for(int i = 0; i < size; i ++) {			// for every node
+		if (!seen[i]) {							// if unvisited
+			dfs_r(matrix, size, seen, 0);		// initiate dfs recursion
+		}
+	}
 	free(seen);									// destroy visited array
 }
 
