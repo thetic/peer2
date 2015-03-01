@@ -378,10 +378,10 @@ void bfs(int ** matrix, int size)
 			while (!queueIsEmpty(q)) {					// while queue is not empty
 				int curr = dequeue(q);					// dequeue a node
 				printf("%d\n", curr);					// print its index
-				for (int i = 0; i < size; i++) {		// check for connections
-					if (!seen[i] && matrix[curr][i]) {	// not visted and connected
-						enqueue(q, i);					// enqueue
-						seen[i] = 1;					// mark visited
+				for (int j = 0; j < size; j++) {		// check for connections
+					if (!seen[j] && matrix[curr][j]) {	// not visted and connected
+						enqueue(q, j);					// enqueue
+						seen[j] = 1;					// mark visited
 					}
 				}
 			}
