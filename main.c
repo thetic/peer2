@@ -280,7 +280,7 @@ int ** initLarge(void)
 int ** initMatrix(int size)
 {
 	int ** ret = calloc(size, sizeof(int *));		// allocate an array
-	for(int i = 0; i < size; i++) {					// each subarrays
+	for (int i = 0; i < size; i++) {				// each subarrays
 		ret[i] = calloc(size, sizeof(int));			// initilize and sero
 	}
 	return ret;
@@ -329,7 +329,7 @@ void addEdge(int ** matrix, int x, int y)
 void dfs(int ** matrix, int size)
 {
 	int * seen = calloc(size, sizeof(int));		// for tracking visited nodes
-	for(int i = 0; i < size; i ++) {			// for every node
+	for (int i = 0; i < size; i ++) {			// for every node
 		if (!seen[i]) {							// if unvisited
 			dfs_r(matrix, size, seen, 0);		// initiate dfs recursion
 		}
@@ -369,19 +369,23 @@ void dfs_r(int ** matrix, int size, int * seen, int index)
  */
 void bfs(int ** matrix, int size)
 {
-	int * seen = calloc(size, sizeof(int));			// for tracking visited nodes
-	queue * q = newQueue();							// create queue
-	enqueue(q, 0);									// begin at node 0
-	seen[0] = 1;									// mark node 0 visited
-	while(!queueIsEmpty(q)) {						// while queue is not empty
-		int curr = dequeue(q);						// dequeue a node
-		printf("%d\n", curr);						// print its index
-		for(int i = 0; i < size; i++) {				// check for connections
-			if(!seen[i] && matrix[curr][i]) {		// not visted and connected
-				enqueue(q, i);						// enqueue
-				seen[i] = 1;						// mark visited
+	int * seen = calloc(size, sizeof(int));				// for tracking visited nodes
+	for (int i = 0; i < size; i++) {
+		if (!seen[i]) {
+			queue * q = newQueue();						// create queue
+			enqueue(q, 0);								// begin at node 0
+			seen[0] = 1;								// mark node 0 visited
+			while (!queueIsEmpty(q)) {					// while queue is not empty
+				int curr = dequeue(q);					// dequeue a node
+				printf("%d\n", curr);					// print its index
+				for (int i = 0; i < size; i++) {		// check for connections
+					if (!seen[i] && matrix[curr][i]) {	// not visted and connected
+						enqueue(q, i);					// enqueue
+						seen[i] = 1;					// mark visited
+					}
+				}
 			}
+			destroyQueue(q);							// destroy queue
 		}
 	}
-	destroyQueue(q);								// destroy queue
 }
