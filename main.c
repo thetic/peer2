@@ -19,12 +19,9 @@ int ** small;			// small test case adjacency matrix
 int ** large;			// large test case adjacency matrix
 
 /***************************** FUNCTION PROTOTYPES ****************************/
-int ** initSmall(void);
-int ** initLarge(void);
 int ** initMatrix(int size);
 int ** readGraph(const char * name, int size);
 void printMatrix(int ** matrix, int size);
-void addEdge(int ** matrix, int x, int y);
 void dfs(int ** matrix, int size);
 void dfs_r(int ** matrix, int size, int * seen, int index);
 void bfs(int ** matrix, int size);
@@ -35,39 +32,52 @@ int main(void)
 	small = readGraph(ten, SMALLSIZE);
 	printf("Small Graph (size %d)\n", SMALLSIZE);	// print small graph
 	printMatrix(small, SMALLSIZE);
+	
 	printf("\nDepth First Search:\n");				// run dfs
 	dfs(small, SMALLSIZE);
-	printf("\nBreadth First Search\n");				// run bfs
+	
+	printf("\nBreadth First Search:\n");			// run bfs
 	bfs(small, SMALLSIZE);
 
 	large = readGraph(hundred, LARGESIZE);
 	printf("Large Graph (size %d)\n", LARGESIZE);	// print large graph
 	printMatrix(large, LARGESIZE);
+	
 	printf("\nDepth First Search:\n");				// run dfs
 	dfs(large, LARGESIZE);
-	printf("\nBreadth First Search\n");				// run bfs
+
+	printf("\nBreadth First Search:\n");			// run bfs
 	bfs(large, LARGESIZE);
 }
 
+/**
+ * @brief	loadss adjacency matrix from file
+ * @details	populates an adjacency matrix from a text file into an integer array
+ * 
+ * @param name	filename
+ * @param size	number of nodes
+ * 
+ * @return pointer
+ */
 int ** readGraph(const char * name, int size)
 {
-	int ** ret = initMatrix(size);
+	int ** ret = initMatrix(size);					// adjacency matrix
+	FILE * file = fopen(name, "r");					// text file
 	
-	FILE * file;
-	file = fopen(name, "r");
-	
-	if (file == NULL) {
+	if (file == NULL) {								// check that file exists
 		fprintf(stderr, "Can't open input file %s", name);
 		exit (1);
 	}
 
+	// load each element
 	for (int i = 0; i < size; i++) {
 		for (int j = 0; j < size; j++) {
-			if(!fscanf(file, "%d", &ret[i][j])) {
+			if (!fscanf(file, "%d", &ret[i][j])) {
 				break;
 			}
 		}
 	}
+
 	return ret;
 }
 
