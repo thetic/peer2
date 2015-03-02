@@ -57,6 +57,8 @@ int main(void)
  * @param size	number of nodes
  * 
  * @return pointer
+ *
+ * Runtime - O(n^2)
  */
 int ** readGraph(const char * name, int size)
 {
@@ -86,6 +88,8 @@ int ** readGraph(const char * name, int size)
  * 
  * @param matrix pointer
  * @param size number of nodes
+ * 
+ * Runtime - O(n)
  */
 int ** initMatrix(int size)
 {
@@ -102,6 +106,8 @@ int ** initMatrix(int size)
  * 
  * @param matrix adjacency matrix
  * @param size number of columns and rows
+ *
+ * Runtime - O(n^2)
  */
 void printMatrix(int ** matrix, int size)
 {
@@ -120,6 +126,8 @@ void printMatrix(int ** matrix, int size)
  * 
  * @param matrix adjacency matrix
  * @param size number of nodes
+ * 
+ * Runtime dfs/dfs_r - O(n^2)
  */
 void dfs(int ** matrix, int size)
 {
@@ -142,6 +150,8 @@ void dfs(int ** matrix, int size)
  * @param size number of nodes
  * @param seen array storing which nodes have been seen
  * @param index index of the node to search
+ *
+ * Runtime dfs/dfs_r - O(n^2)
  */
 void dfs_r(int ** matrix, int size, int * seen, int index)
 {
@@ -162,6 +172,8 @@ void dfs_r(int ** matrix, int size, int * seen, int index)
  * 
  * @param matrix adjacency matrix
  * @param size number of nodes
+ *
+ * Runtime - O(n^2)
  */
 void bfs(int ** matrix, int size)
 {
