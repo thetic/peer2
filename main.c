@@ -146,13 +146,13 @@ void dfs(int ** matrix, int size)
 void dfs_r(int ** matrix, int size, int * seen, int index)
 {
 	seen[index] = 1;								// mark node visited
-	printf("Visited: %d\n", index);							// print node index
+	printf("Visited: %d\n", index);					// print node index when pushed
 	for (int i = 0; i < size; i++) {				// check each connection
 		if (!seen[i] && matrix[index][i]) {			// not visted and connected
 			dfs_r(matrix, size, seen, i);			// recurse
 		}
 	}
-	printf("Popped: %d\n", index);
+	printf("Popped: %d\n", index);					//print when vertex is popped 
 }
 
 /**
