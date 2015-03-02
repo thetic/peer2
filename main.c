@@ -13,19 +13,12 @@
 #define LARGESIZE 100	// nodes in large test case
 
 /***************************** STRUCTURES*************************************/
-typedef struct{
-	char * file;
-	char * name;
-	const int size;
-	int ** matrix;
+typedef struct{			//holds graph test data
+	char * file;		//file name
+	char * name;		//name to print
+	const int size;		//number of nodes
+	int ** matrix;		//adjacency matrix
 } graph; 
-
-/***************************** GLOBAL DECLARATIONS ****************************/
-graph * testFiles;
-const char ten[] = "ten.txt";
-const char hundred[] = "hundred.txt";
-int ** matrix;			// small test case adjacency matrix
-// int ** large;			// large test case adjacency matrix
 
 /***************************** FUNCTION PROTOTYPES ****************************/
 int ** initMatrix(int size);
@@ -57,7 +50,7 @@ int main(void)
 }
 
 /**
- * @brief	loadss adjacency matrix from file
+ * @brief	loads adjacency matrix from file
  * @details	populates an adjacency matrix from a text file into an integer array
  * 
  * @param name	filename
@@ -153,12 +146,13 @@ void dfs(int ** matrix, int size)
 void dfs_r(int ** matrix, int size, int * seen, int index)
 {
 	seen[index] = 1;								// mark node visited
-	printf("%d\n", index);							// print node index
+	printf("Visited: %d\n", index);							// print node index
 	for (int i = 0; i < size; i++) {				// check each connection
 		if (!seen[i] && matrix[index][i]) {			// not visted and connected
 			dfs_r(matrix, size, seen, i);			// recurse
 		}
 	}
+	printf("Popped: %d\n", index);
 }
 
 /**
