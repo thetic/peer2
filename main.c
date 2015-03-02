@@ -12,11 +12,20 @@
 #define SMALLSIZE 10	// nodes in small test case	
 #define LARGESIZE 100	// nodes in large test case
 
+/***************************** STRUCTURES*************************************/
+typedef struct{
+	char * file;
+	char * name;
+	const int size;
+	int ** matrix;
+} graph; 
+
 /***************************** GLOBAL DECLARATIONS ****************************/
+graph * testFiles;
 const char ten[] = "ten.txt";
 const char hundred[] = "hundred.txt";
-int ** small;			// small test case adjacency matrix
-int ** large;			// large test case adjacency matrix
+int ** matrix;			// small test case adjacency matrix
+// int ** large;			// large test case adjacency matrix
 
 /***************************** FUNCTION PROTOTYPES ****************************/
 int ** initMatrix(int size);
@@ -29,25 +38,22 @@ void bfs(int ** matrix, int size);
 /********************************** FUNCTIONS *********************************/
 int main(void)
 {
-	small = readGraph(ten, SMALLSIZE);
-	printf("Small Graph (size %d)\n", SMALLSIZE);	// print small graph
-	printMatrix(small, SMALLSIZE);
+	graph graphTest[2] = {
+		{"ten.txt", "Small", SMALLSIZE},						//initialize struct with test files
+		{"hundred.txt", "Large", LARGESIZE}
+	};
 	
-	printf("\nDepth First Search:\n");				// run dfs
-	dfs(small, SMALLSIZE);
+	for(int i = 0; i < 2 /*sizeof(graphTest[i])*/; i++){				//iterate through test files
+		graphTest[i].matrix = readGraph(graphTest[i].file, graphTest[i].size); //load graph matrix
+		printf("%s Graph (size %d)\n", graphTest[i].name, graphTest[i].size);  //print heading
+		printMatrix(graphTest[i].matrix, graphTest[i].size);	//print graph matrix
+		
+		printf("\nDepth First Search:\n");						// run dfs
+		dfs(graphTest[i].matrix, graphTest[i].size);
 	
-	printf("\nBreadth First Search:\n");			// run bfs
-	bfs(small, SMALLSIZE);
-
-	large = readGraph(hundred, LARGESIZE);
-	printf("Large Graph (size %d)\n", LARGESIZE);	// print large graph
-	printMatrix(large, LARGESIZE);
-	
-	printf("\nDepth First Search:\n");				// run dfs
-	dfs(large, LARGESIZE);
-
-	printf("\nBreadth First Search:\n");			// run bfs
-	bfs(large, LARGESIZE);
+		printf("\nBreadth First Search:\n");					// run bfs
+		bfs(graphTest[i].matrix, graphTest[i].size);
+	}
 }
 
 /**
