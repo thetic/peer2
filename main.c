@@ -2,6 +2,7 @@
  * @file	main.c
  * @brief	Peer-2 assignment for TCSS 343
  * @author	Group 9: Chad Condon, Richard Hemingway, Phuc Nguyen, Jasmine Scott
+ * Overall  Runtime - O(n^2)
  */
 
 /*************************** PREPROCESSOR DIRECTIVES **************************/
@@ -12,7 +13,7 @@
 #define SMALLSIZE 10	// nodes in small test case	
 #define LARGESIZE 100	// nodes in large test case
 
-/***************************** STRUCTURES*************************************/
+/***************************** STRUCTURES *************************************/
 typedef struct{			//holds graph test data
 	char * file;		//file name
 	char * name;		//name to print
@@ -32,11 +33,11 @@ void bfs(int ** matrix, int size);
 int main(void)
 {
 	graph graphTest[2] = {
-		{"ten.txt", "Small", SMALLSIZE},						//initialize struct with test files
+		{"ten.txt", "Small", SMALLSIZE},						//initialize struct test parameters
 		{"hundred.txt", "Large", LARGESIZE}
 	};
 	
-	for(int i = 0; i < 2 /*sizeof(graphTest[i])*/; i++){				//iterate through test files
+	for(int i = 0; i < (sizeof(graphTest)/sizeof(graph)); i++){		//iterate through test files
 		graphTest[i].matrix = readGraph(graphTest[i].file, graphTest[i].size); //load graph matrix
 		printf("%s Graph (size %d)\n", graphTest[i].name, graphTest[i].size);  //print heading
 		printMatrix(graphTest[i].matrix, graphTest[i].size);	//print graph matrix
